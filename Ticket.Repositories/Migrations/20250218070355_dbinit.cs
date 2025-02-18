@@ -6,24 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ticket.Repositories.Migrations
 {
     /// <inheritdoc />
-    public partial class dbinihdudhd : Migration
+    public partial class dbinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Bookings",
-                columns: table => new
-                {
-                    bookingid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    bookingdate = table.Column<int>(type: "int", nullable: false),
-                    tickets = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.bookingid);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Buses",
                 columns: table => new
@@ -80,6 +67,31 @@ namespace Ticket.Repositories.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.uid);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    bookingid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    bookingdate = table.Column<int>(type: "int", nullable: false),
+                    tickets = table.Column<int>(type: "int", nullable: false),
+                    uid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.bookingid);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Users_uid",
+                        column: x => x.uid,
+                        principalTable: "Users",
+                        principalColumn: "uid",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_uid",
+                table: "Bookings",
+                column: "uid");
         }
 
         /// <inheritdoc />

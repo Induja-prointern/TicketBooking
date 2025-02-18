@@ -17,6 +17,17 @@ namespace Ticket.Repositories
         public DbSet<Payment> Payments { get; set; }
         public DbSet<TravelTicket> Tickets { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            // Define the relationship between User and Booking (One-to-many)
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.uid);  // Foreign key in Booking
+        }
     }
+
+
 }

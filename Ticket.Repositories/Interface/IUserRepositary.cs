@@ -12,6 +12,7 @@ namespace Ticket.Repositories.Interface
         Task<List<User>> GetAll();
         Task<User> GetByid(Guid uid);
         Task<User> AddUser(User user);
+        Task<User> DeleteUserById(Guid id);
        
     }
 }

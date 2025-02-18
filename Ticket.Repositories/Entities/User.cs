@@ -17,6 +17,8 @@ namespace Ticket.Repositories.Entities
         public string gender { get; set; }
         public int  age { get; set; }
         public string email { get; set; }
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
 
     }
 }

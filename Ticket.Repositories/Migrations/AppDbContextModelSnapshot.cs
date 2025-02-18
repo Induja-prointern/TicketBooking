@@ -34,7 +34,12 @@ namespace Ticket.Repositories.Migrations
                     b.Property<int>("tickets")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("uid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("bookingid");
+
+                    b.HasIndex("uid");
 
                     b.ToTable("Bookings");
                 });
@@ -127,6 +132,22 @@ namespace Ticket.Repositories.Migrations
                     b.HasKey("uid");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Ticket.Repositories.Entities.Booking", b =>
+                {
+                    b.HasOne("Ticket.Repositories.Entities.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("uid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Ticket.Repositories.Entities.User", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

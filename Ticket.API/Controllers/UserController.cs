@@ -39,5 +39,18 @@ namespace Ticket.API.Controllers
             UserModel createduser = await _userService.AddUser(userModel);
             return CreatedAtAction(nameof(GetByid), new { id = createduser.uid }, createduser);
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromBody] Guid uid)
+        {
+            var result = await _userService.DeleteUserById(uid);
+            if (result == null)
+            {
+                return NotFound(); // If the user is not found, return 404.
+            }
+
+            return NoContent(); // Return 204 No Content if deletion is successful.
+        
+
+    }
     }
 }

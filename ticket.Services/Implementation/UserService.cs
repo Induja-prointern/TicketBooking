@@ -42,6 +42,12 @@ namespace Ticket.Services.Implementation
             User createdUser = await _userRepo.AddUser(userEntity);
             return _mapper.Map<UserModel>(createdUser);
         }
+        public async Task<User> DeleteUserById(Guid uid)
+        {
+            var user = await _userRepo.DeleteUserById(uid);
+            return user;
+
+        }
 
     }
 }

@@ -14,6 +14,7 @@ namespace Ticket.Models.Model
         public Guid bookingid { get; set; }
         public int bookingdate { get; set; }
         public int tickets { get; set; }
+        public Guid uid { get; set; }
 
     }
 }
